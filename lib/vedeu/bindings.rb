@@ -164,7 +164,7 @@ module Vedeu
     # current menu item.
     Vedeu.bind(:_menu_top_) { |name| Vedeu.menus.find(name).top_item }
 
-    Vedeu.bind(:_menu_traverse_) { |name| Vedeu.menus.find(name).traverse      }
+    Vedeu.bind(:_menu_traverse_) { |name| Vedeu.menus.find(name).traverse }
 
     # Requires target menu name as argument. Returns a subset of the menu items;
     # starting at the current item to the last item.
