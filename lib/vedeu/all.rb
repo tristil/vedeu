@@ -23,6 +23,7 @@ require 'vedeu/dsl/shared/all'
 require 'vedeu/dsl/all'
 
 require 'vedeu/events/all'
+require 'vedeu/forms/all'
 require 'vedeu/input/all'
 require 'vedeu/output/all'
 require 'vedeu/support/all'
