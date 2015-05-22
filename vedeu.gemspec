@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'guard',              '2.12.6'
   spec.add_development_dependency 'guard-bundler',      '2.1.0'
   spec.add_development_dependency 'guard-minitest',     '2.4.4'
+  spec.add_development_dependency 'hotch'
   spec.add_development_dependency 'inch',               '0.6.2'
   spec.add_development_dependency 'minitest',           '5.7.0'
   spec.add_development_dependency 'minitest-reporters', '1.0.17'

@@ -46,6 +46,8 @@ module Vedeu
     # @return [void]
     def debug_execute!
       if configuration.debug?
+        # require 'hotch'
+        # Hotch() { execute! }
         Vedeu.debug { execute! }
 
       else
@@ -56,6 +58,8 @@ module Vedeu
       terminate!
     end
 
+    # Launches the application and catches previously uncaught exceptions.
+    #
     # @return [void]
     def execute!
       $stdin  = @stdin
