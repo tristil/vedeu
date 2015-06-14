@@ -1,0 +1,96 @@
+#!/usr/bin/env ruby
+
+def test_for(source_file)
+  source_file.gsub('./bin/../lib', './bin/../test/lib').
+              gsub(/\.rb$/, '_test.rb')
+end
+
+def source_for(test_file)
+  test_file.gsub('./bin/../test/lib', './bin/../lib').
+            gsub(/_test\.rb$/, '.rb')
+end
+
+# get all files in lib
+lib   = File.dirname(__FILE__) + '/../lib/**/*'
+
+# for each file in lib
+files = Dir.glob(lib).select do |file|
+  # get file name
+  File.file?(file) && File.extname(file) == '.rb'
+end
+
+files.each do |src_file|
+  begin
+    # get test file name
+    # test_file = src_file.gsub('./bin/../lib', './bin/../test/lib').
+    #                      gsub(/\.rb$/, '_test.rb')
+    test_file = test_for(src_file)
+
+    src_lines  = File.readlines(src_file)
+
+    # open test file placing lines into an array
+    test_lines = File.readlines(test_file)
+
+    # get all lines that define method (start with def)
+    acc = { src_file => [] }
+    src_lines.map do |line|
+      if line =~ /def (\w.*)/
+        # remove 'def self.' or 'def '
+        # remove from '(' to end of line
+        src_method = line.gsub(/\s.*def /, '').gsub(/\(\w.*\)/, '').chomp
+        acc[src_file] << src_method
+      end
+    end
+
+    tests = { test_file => [] }
+    test_lines.map do |line|
+      if line =~ /describe \'(#|\.)(\w.*)/
+        test_method = line.gsub(/\s.*describe \'(#|\.)/, '').gsub(/\' do/, '').chomp
+        tests[test_file] << test_method
+      end
+    end
+
+    # puts acc.inspect
+    # puts tests.inspect
+
+    # methods = tests[test_file] # - acc[src_file]
+    srcmethods = "\e[33m#{acc[src_file].join(', ')}\e[39m"
+    testmethods = "\e[35m#{tests[test_file].join(', ')}\e[39m"
+
+    puts srcmethods
+    puts testmethods
+
+    # puts def_lines.inspect
+    # puts desc_lines.inspect
+
+    # things = def_lines.inject([]) do |acc, (f, fm)|
+    #   desc_lines.each do |t, tm|
+    #     if source_for(t) == f && tm == fm
+    #       acc << "Y:#{tm}"
+
+    #     else
+    #       acc << "N:#{tm}"
+
+    #     end
+    #   end
+    #   acc
+    # end
+    # puts things.inspect
+
+
+
+  rescue Errno::ENOENT
+    # puts "Cannot open '#{src_file}' or respective test file for analysis."
+    next
+
+  end
+end
+
+
+
+
+
+  # search each line for previously ascertained method name
+  # if cannot be found, report with file name/method name
+  # if found, report with file name/method name
+#
