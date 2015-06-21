@@ -1,4 +1,5 @@
 require_relative 'common'
+require_relative 'continuous'
 require_relative 'options'
 require_relative 'template'
 require_relative 'terminal'

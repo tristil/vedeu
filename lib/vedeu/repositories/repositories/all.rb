@@ -1,6 +1,7 @@
 require 'vedeu/repositories/repository'
 
 require_relative 'colours'
+require_relative 'continuous_repository'
 require_relative 'background_colours'
 require_relative 'foreground_colours'
 require_relative 'borders'
